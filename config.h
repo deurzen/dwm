@@ -75,13 +75,15 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-//static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *dmenucmd[]      = { "rofi", "-run-command", "zsh -i -c '{cmd}'", "-show", "run", "-font", "tewi 9", "-width", "20", "-lines", "3", NULL };
-static const char *rofipass[]      = { "rofi-pass", NULL };
-static const char *termcmd[]       = { "st", NULL };
-static const char *floattermcmd[]  = { "st", "-c", "\"st-float\"", NULL };
-static const char *stregion[]      = { "stregion", NULL };
+static       char dmenumon[2]       = "0"; /* component of dmenucmd, manipulated in spawn() */
+static const char *dmenucmd[]       = { "rofi", "-run-command", "zsh -i -c '{cmd}'", "-show", "run", "-font", "tewi 9", "-width", "20", "-lines", "3", NULL };
+static const char *rofipass[]       = { "rofi-pass", NULL };
+static const char *termcmd[]        = { "st", NULL };
+static const char *floattermcmd[]   = { "st", "-c", "\"st-float\"", NULL };
+static const char *stregion[]       = { "stregion", NULL };
+static const char *qutebrowser[]    = { "qutebrowser", NULL };
+static const char *qutebrowseror[]  = { "qutebrowser", "-R", NULL };
+
 
 static Key keys[] = {
   /* modifier                     key        function        argument */
@@ -105,6 +107,8 @@ static Key keys[] = {
   { MODKEY,                       XK_d,      setlayout,      {.v = &layouts[4]} },
   { MODKEY,                       XK_w,      spawn,          {.v = stregion} },
   { MODKEY,                       XK_p,      spawn,          {.v = rofipass} },
+  { MODKEY,                       XK_q,      spawn,          {.v = qutebrowser} },
+  { MODKEY|ShiftMask,             XK_q,      spawn,          {.v = qutebrowseror} },
   { MODKEY,                       XK_space,  setlayout,      {0} },
   { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
   { MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -122,7 +126,7 @@ static Key keys[] = {
   TAGKEYS(                        XK_7,                      6)
   TAGKEYS(                        XK_8,                      7)
   TAGKEYS(                        XK_9,                      8)
-  { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+  { MODKEY|ShiftMask,             XK_x,      quit,           {0} },
 };
 
 /* button definitions */
