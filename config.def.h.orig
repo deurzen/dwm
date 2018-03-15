@@ -2,9 +2,12 @@
 
 /* appearance */
 static const char *fonts[] = {
-	"-xos4-terminus-medium-r-normal--12-*-*-*-*-*-*-*"
+	"monospace:size=10",
+  "tewi:pixelsize=9",
+  "Terminus2:pixelsize=12"
 };
 //static const char dmenufont[]       = "tewi:pixelsize=10";
+static const char font[]            = "-xos4-terminus-medium-r-normal--12-*-*-*-*-*-*-*";
 static const char dmenufont[]       = "-*-tewi-medium-r-normal-*-11-90-100-100-c-60-iso10646-1";
 static const char normbordercolor[] = "#222222";
 static const char normbgcolor[]     = "#111111";
@@ -12,10 +15,23 @@ static const char normfgcolor[]     = "#5911c0";
 static const char selbordercolor[]  = "#222222";
 static const char selbgcolor[]      = "#111111";
 static const char selfgcolor[]      = "#cc00ff";
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
+/* border pixel of windows */
+static const unsigned int borderpx  = 1;
+/* snap pixel */
+static const unsigned int snap      = 0;
+/* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systraypinning = 0;
+/* systray spacing */
+static const unsigned int systrayspacing = 2;
+/* 1: if pinning fails, display systray on the first monitor,
+ * 0: display systray on the last monitor */
+static const int systraypinningfailfirst = 1;
+/* 0 means no systray */
+static const int showsystray = 1;
+/* 0 means no bar */
+static const int showbar = 1;
+/* 0 means bottom bar */
+static const int topbar = 1;
 
 /* tagging */
 static const char *tags[] = { "0", "1", "2", "3", "4", "5", "6", "7", "8" };
@@ -28,7 +44,7 @@ static const Rule rules[] = {
 	/* class         instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",        NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",     NULL,       NULL,       1 << 8,       0,           -1 },
-	{ "st-float",  NULL,       NULL,       0,            1,           -1 },
+	{ "st-float",    NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -60,9 +76,10 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 //static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *dmenucmd[] = { "rofi", "-run-command", "zsh -i -c '{cmd}'", "-show", "run", "-font", "twei 9", "-width", "20", "-lines", "3", NULL };
-static const char *termcmd[]  = { "st", NULL };
-static const char *floattermcmd[]  = { "st -c \"st-float\"", NULL };
+static const char *dmenucmd[]      = { "rofi", "-run-command", "zsh -i -c '{cmd}'", "-show", "run", "-font", "twei 9", "-width", "20", "-lines", "3", NULL };
+static const char *termcmd[]       = { "st", NULL };
+static const char *floattermcmd[]  = { "st", "-c", "\"st-float\"", NULL };
+static const char *stregion[]      = { "stregion", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -76,7 +93,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_u,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
+	//{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
@@ -84,6 +101,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_s,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_d,      setlayout,      {.v = &layouts[4]} },
+	{ MODKEY,                       XK_w,      spawn,          {.v = stregion} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
