@@ -76,47 +76,73 @@ static const Layout layouts[] = {
 
 /* commands */
 static       char dmenumon[2]       = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[]       = { "rofi", "-run-command", "zsh -i -c '{cmd}'", "-show", "run", "-font", "tewi 9", "-width", "20", "-lines", "3", NULL };
+// program binds
+static const char *dmenucmd[]       = { "rofi", "-run-command", "zsh -i -c '{cmd}'", "-show", "run",
+                                        "-font", "tewi 9", "-width", "20", "-lines", "3", NULL };
 static const char *rofipass[]       = { "rofi-pass", NULL };
 static const char *termcmd[]        = { "st", NULL };
 static const char *floattermcmd[]   = { "st", "-c", "\"st-float\"", NULL };
 static const char *stregion[]       = { "stregion", NULL };
 static const char *qutebrowser[]    = { "qutebrowser", NULL };
 static const char *qutebrowseror[]  = { "qutebrowser", "-R", NULL };
+static const char *lockscreen[]     = { "7lock", NULL };
+
+// multimedia binds
+static const char *volumeup[]       = { "pactl", "set-sink-volume", "0", "+5%", NULL };
+static const char *volumedown[]     = { "pactl", "set-sink-volume", "0", "-5%", NULL };
+static const char *volumemute[]     = { "pactl", "set-sink-mute", "0", "toggle", NULL };
+static const char *brightup[]       = { "light", "-A", "15", NULL };
+static const char *brightdown[]     = { "light", "-U", "15", NULL };
+static const char *lightup[]        = { "light", "-A", "5", NULL };
+static const char *lightdown[]      = { "light", "-U", "5", NULL };
+
 
 
 static Key keys[] = {
   /* modifier                     key        function        argument */
+// program binds
   { MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
   { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
   { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = floattermcmd } },
-  { MODKEY,                       XK_b,      togglebar,      {0} },
+  { MODKEY,                       XK_w,      spawn,          {.v = stregion} },
+  { MODKEY,                       XK_p,      spawn,          {.v = rofipass} },
+  { MODKEY,                       XK_q,      spawn,          {.v = qutebrowser} },
+  { MODKEY|ShiftMask,             XK_q,      spawn,          {.v = qutebrowseror} },
+  { MODKEY|ShiftMask,             XK_Delete, spawn,          {.v = lockscreen} },
+//multimedia binds
+  { 0,                            0x1008ff13,spawn,          {.v = volumeup} },
+  { 0,                            0x1008ff11,spawn,          {.v = volumedown} },
+  { 0,                            0x1008ff12,spawn,          {.v = volumemute} },
+  { 0,                            0x1008ff02,spawn,          {.v = brightup} },
+  { 0,                            0x1008ff03,spawn,          {.v = brightdown} },
+  { ShiftMask,                    0x1008ff02,spawn,          {.v = lightup} },
+  { ShiftMask,                    0x1008ff03,spawn,          {.v = lightdown} },
+// layout binds
+  { MODKEY,                       XK_BackSpace, zoom,        {0} },
+  { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+  { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+  { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+  { MODKEY,                       XK_s,      setlayout,      {.v = &layouts[3]} },
+  { MODKEY,                       XK_d,      setlayout,      {.v = &layouts[4]} },
+  { MODKEY,                       XK_space,  setlayout,      {0} },
+  { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
   { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
   { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
   { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
   { MODKEY,                       XK_u,      incnmaster,     {.i = -1 } },
   { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
   { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-  //{ MODKEY,                       XK_Return, zoom,           {0} },
+// general management binds
   { MODKEY,                       XK_Tab,    view,           {0} },
+  { MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
   { MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-  { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-  { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-  { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-  { MODKEY,                       XK_s,      setlayout,      {.v = &layouts[3]} },
-  { MODKEY,                       XK_d,      setlayout,      {.v = &layouts[4]} },
-  { MODKEY,                       XK_w,      spawn,          {.v = stregion} },
-  { MODKEY,                       XK_p,      spawn,          {.v = rofipass} },
-  { MODKEY,                       XK_q,      spawn,          {.v = qutebrowser} },
-  { MODKEY|ShiftMask,             XK_q,      spawn,          {.v = qutebrowseror} },
-  { MODKEY,                       XK_space,  setlayout,      {0} },
-  { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
   { MODKEY,                       XK_0,      view,           {.ui = ~0 } },
   { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
   { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
   { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
   { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
   { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+  { MODKEY|Mod1Mask|ShiftMask,    XK_x,      quit,           {0} },
   TAGKEYS(                        XK_1,                      0)
   TAGKEYS(                        XK_2,                      1)
   TAGKEYS(                        XK_3,                      2)
@@ -126,8 +152,8 @@ static Key keys[] = {
   TAGKEYS(                        XK_7,                      6)
   TAGKEYS(                        XK_8,                      7)
   TAGKEYS(                        XK_9,                      8)
-  { MODKEY|Mod1Mask|ShiftMask,    XK_x,      quit,           {0} },
 };
+
 
 /* button definitions */
 /* click can be ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
