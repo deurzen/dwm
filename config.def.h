@@ -106,8 +106,20 @@ static const char *brightdown[]     = { "light", "-U", "15", NULL };
 static const char *lightup[]        = { "light", "-A", "5", NULL };
 static const char *lightdown[]      = { "light", "-U", "5", NULL };
 
+// mpc commands
+static const char *mpctoggle[]      = { "mpc", "toggle", NULL };
+static const char *mpcnext[]        = { "mpc", "next", NULL };
+static const char *mpcprev[]        = { "mpc", "prev", NULL };
+static const char *mpcstop[]        = { "mpc", "stop", NULL };
+static const char *mpcrandom[]      = { "mpc", "random", NULL };
+static const char *mpcsingle[]      = { "mpc", "single", NULL };
+
+// general management commands
+static const char scratchpadname[]  = "scratchpad";
+static const char *scratchpadcmd[]  = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 
 
+#include "movestack.c"
 static Key keys[] = {
   /* modifier                     key        function        argument */
 // program binds
@@ -119,7 +131,7 @@ static Key keys[] = {
   { MODKEY,                       XK_q,      spawn,          {.v = qutebrowser} },
   { MODKEY|ShiftMask,             XK_q,      spawn,          {.v = qutebrowseror} },
   { MODKEY|ShiftMask,             XK_Delete, spawn,          {.v = lockscreen} },
-//multimedia binds
+// multimedia binds
   { 0,                            0x1008ff13,spawn,          {.v = volumeup} },
   { 0,                            0x1008ff11,spawn,          {.v = volumedown} },
   { 0,                            0x1008ff12,spawn,          {.v = volumemute} },
@@ -127,6 +139,13 @@ static Key keys[] = {
   { 0,                            0x1008ff03,spawn,          {.v = brightdown} },
   { ShiftMask,                    0x1008ff02,spawn,          {.v = lightup} },
   { ShiftMask,                    0x1008ff03,spawn,          {.v = lightdown} },
+// mpc binds
+  { MODKEY|ControlMask,           XK_p,      spawn,          {.v = mpctoggle} },
+  { MODKEY|ControlMask,           XK_j,      spawn,          {.v = mpcnext} },
+  { MODKEY|ControlMask,           XK_k,      spawn,          {.v = mpcprev} },
+  { MODKEY|ControlMask,           XK_BackSpace,spawn,        {.v = mpcstop} },
+  { MODKEY|ControlMask,           XK_r,      spawn,          {.v = mpcrandom} },
+  { MODKEY|ControlMask,           XK_s,      spawn,          {.v = mpcsingle} },
 // layout binds
   { MODKEY,                       XK_BackSpace, zoom,        {0} },
   { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
@@ -144,11 +163,16 @@ static Key keys[] = {
   { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
   { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
   { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-  { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+  { MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+  { MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
   { MODKEY,                       XK_u,      incnmaster,     {.i = -1 } },
+  { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+  { MODKEY|ShiftMask,             XK_u,      rotatestack,    {.i = -1 } },
+  { MODKEY|ShiftMask,             XK_i,      rotatestack,    {.i = +1 } },
   { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
   { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 // general management binds
+  { MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
   { MODKEY,                       XK_Tab,    view,           {0} },
   { MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
   { MODKEY|ControlMask,           XK_b,      toggleextrabar, {0} },
