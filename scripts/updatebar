@@ -1,0 +1,24 @@
+#!/bin/bash
+
+CLOCK='date +"%a, %B %e  %T"'
+
+while true
+do
+BAT_STATUS=$(acpi -b)
+BAT_STATE=$(echo $BAT_STATUS | awk -F"[ ,:]" '{print $4}')
+BAT_PERC=$(echo $BAT_STATUS | awk -F"[ ,:]" '{print $6}')
+BAT_HOURS=$(echo $BAT_STATUS | awk -F"[ ,:]" '{print $8}')
+BAT_MINS=$(echo $BAT_STATUS | awk -F"[ ,:]" '{print $9}')
+BATTERY="<$(echo $BAT_STATE | head -c 1)> $BAT_PERC ${BAT_HOURS}h$BAT_MINS"
+
+MUSIC=$(mpc current | awk -F'(' '{print $1}')
+MUSIC=${MUSIC% *}
+
+if [ -n "$MUSIC" ]; then
+  MUSIC=[$MUSIC]
+fi
+
+xsetroot -name "[$BATTERY]  [`eval $CLOCK`]  [$USER];$MUSIC"
+sleep 1
+done
+
