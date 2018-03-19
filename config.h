@@ -114,6 +114,10 @@ static const char *mpcstop[]        = { "mpc", "stop", NULL };
 static const char *mpcrandom[]      = { "mpc", "random", NULL };
 static const char *mpcsingle[]      = { "mpc", "single", NULL };
 
+// general management commands
+static const char scratchpadname[]  = "scratchpad";
+static const char *scratchpadcmd[]  = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
+
 
 #include "movestack.c"
 static Key keys[] = {
@@ -168,6 +172,7 @@ static Key keys[] = {
   { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
   { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 // general management binds
+  { MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
   { MODKEY,                       XK_Tab,    view,           {0} },
   { MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
   { MODKEY|ControlMask,           XK_b,      toggleextrabar, {0} },

@@ -1,40 +1,16 @@
 --- dwm.c
 +++ dwm.c
-@@ -165,6 +165,8 @@ static void detachstack(Client *c);
- static Monitor *dirtomon(int dir);
- static void drawbar(Monitor *m);
- static void drawbars(void);
-+static void enqueue(Client *c);
-+static void enqueuestack(Client *c);
- static void enternotify(XEvent *e);
- static void expose(XEvent *e);
- static void focus(Client *c);
-@@ -766,6 +769,28 @@ drawbars(void)
- }
+@@ -1054,6 +1057,13 @@ manage(Window w, XWindowAttributes *wa)
+ 	           && (c->x + (c->w / 2) < c->mon->wx + c->mon->ww)) ? bh : c->mon->my);
+ 	c->bw = borderpx;
  
- void
-+enqueue(Client *c)
-+{
-+	Client *l;
-+	for (l = c->mon->clients; l && l->next; l = l->next);
-+	if (l) {
-+		l->next = c;
-+		c->next = NULL;
++	if (!strcmp(c->name, scratchpadname)) {
++		c->mon->tagset[c->mon->seltags] |= c->tags = scratchtag;
++		c->isfloating = True;
++		c->x = c->mon->wx + (c->mon->ww / 2 - WIDTH(c) / 2);
++		c->y = c->mon->wy + (c->mon->wh / 2 - HEIGHT(c) / 2);
 +	}
-+}
 +
-+void
-+enqueuestack(Client *c)
-+{
-+	Client *l;
-+	for (l = c->mon->stack; l && l->snext; l = l->snext);
-+	if (l) {
-+		l->snext = c;
-+		c->snext = NULL;
-+	}
-+}
-+
-+void
- enternotify(XEvent *e)
- {
- 	Client *c;
+ 	wc.border_width = c->bw;
+ 	XConfigureWindow(dpy, w, CWBorderWidth, &wc);
+ 	XSetWindowBorder(dpy, w, scheme[SchemeNorm][ColBorder].pixel);

@@ -2,7 +2,8 @@
 
 /* appearance */
 static const char *fonts[] = {
-  "monospace:size=10",
+  "Misc Tamsyn:size=12",
+  "monospace:size=9",
   "tewi:pixelsize=9",
   "Terminus2:pixelsize=12"
 };
@@ -12,7 +13,7 @@ static const char dmenufont[]       = "-*-tewi-medium-r-normal-*-11-90-100-100-c
 static const char normbordercolor[] = "#222222";
 static const char normbgcolor[]     = "#111111";
 static const char normfgcolor[]     = "#5911c0";
-static const char selbordercolor[]  = "#222222";
+static const char selbordercolor[]  = "#353535";
 static const char selbgcolor[]      = "#111111";
 static const char selfgcolor[]      = "#cc00ff";
 /* border pixel of windows */
@@ -53,7 +54,7 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 #include "fibonacci.c"
 #include "gaplessgrid.c"
