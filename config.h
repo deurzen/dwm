@@ -125,6 +125,7 @@ static Key keys[] = {
 // program binds
   { MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
   { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+  { MODKEY|ControlMask,           XK_Return, spawncwd,       {.v = termcmd } },
   { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = floattermcmd } },
   { MODKEY,                       XK_w,      spawn,          {.v = stregion} },
   { MODKEY,                       XK_p,      spawn,          {.v = rofipass} },
