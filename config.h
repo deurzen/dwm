@@ -148,6 +148,7 @@ static Key keys[] = {
   { MODKEY|ControlMask,           XK_s,      spawn,          {.v = mpcsingle} },
 // layout binds
   { MODKEY,                       XK_BackSpace, zoom,        {0} },
+  { MODKEY,                       XK_backslash, switchcol,   {0} },
   { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
   { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
   { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },

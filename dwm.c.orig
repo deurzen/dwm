@@ -254,6 +254,7 @@ static void tile(Monitor *);
 static void togglebar(const Arg *arg);
 static void toggleextrabar(const Arg *arg);
 static void togglefloating(const Arg *arg);
+static void togglescratch(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
@@ -322,6 +323,8 @@ static Bar eb;
 
 /* configuration, allows nested code to access above variables */
 #include "config.h"
+
+static unsigned int scratchtag = 1 << LENGTH(tags);
 
 /* compile-time check if all tags fit into an unsigned int bit array. */
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
@@ -800,7 +803,7 @@ deck(Monitor *m) {
 
   dn = n - m->nmaster;
   if(dn > 0) /* override layout symbol */
-    snprintf(m->ltsymbol, sizeof m->ltsymbol, "D %d", dn);
+    snprintf(m->ltsymbol, sizeof m->ltsymbol, "[D%d]", dn);
 
   if(n > m->nmaster)
     mw = m->nmaster ? m->ww * m->mfact : 0;
@@ -1261,6 +1264,13 @@ manage(Window w, XWindowAttributes *wa)
   c->y = MAX(c->y, ((c->mon->by == c->mon->my) && (c->x + (c->w / 2) >= c->mon->wx)
              && (c->x + (c->w / 2) < c->mon->wx + c->mon->ww)) ? bh : c->mon->my);
   c->bw = borderpx;
+
+  if (!strcmp(c->name, scratchpadname)) {
+    c->mon->tagset[c->mon->seltags] |= c->tags = scratchtag;
+    c->isfloating = True;
+    c->x = c->mon->wx + (c->mon->ww / 2 - WIDTH(c) / 2);
+    c->y = c->mon->wy + (c->mon->wh / 2 - HEIGHT(c) / 2);
+  }
 
   wc.border_width = c->bw;
   XConfigureWindow(dpy, w, CWBorderWidth, &wc);
@@ -2046,6 +2056,28 @@ togglefloating(const Arg *arg)
     resize(selmon->sel, selmon->sel->x, selmon->sel->y,
            selmon->sel->w, selmon->sel->h, 0);
   arrange(selmon);
+}
+
+void
+togglescratch(const Arg *arg)
+{
+  Client *c;
+  unsigned int found = 0;
+
+  for (c = selmon->clients; c && !(found = c->tags & scratchtag); c = c->next);
+  if (found) {
+    unsigned int newtagset = selmon->tagset[selmon->seltags] ^ scratchtag;
+    if (newtagset) {
+      selmon->tagset[selmon->seltags] = newtagset;
+      focus(NULL);
+      arrange(selmon);
+    }
+    if (ISVISIBLE(c)) {
+      focus(c);
+      restack(selmon);
+    }
+  } else
+    spawn(arg);
 }
 
 void
