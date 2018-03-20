@@ -13,14 +13,23 @@ static const char *fonts[] = {
 //static const char dmenufont[]       = "tewi:pixelsize=10";
 static const char font[]            = "-xos4-terminus-medium-r-normal--12-*-*-*-*-*-*-*";
 static const char dmenufont[]       = "-*-tewi-medium-r-normal-*-11-90-100-100-c-60-iso10646-1";
-static const char normbordercolor[] = "#222222";
-static const char normbgcolor[]     = "#111111";
-static const char normfgcolor[]     = "#5911c0";
-static const char selbordercolor[]  = "#353535";
-static const char selbgcolor[]      = "#111111";
-static const char selfgcolor[]      = "#cc00ff";
+//static const char normbordercolor[] = "#222222";
+//static const char normbgcolor[]     = "#111111";
+//static const char normfgcolor[]     = "#5911c0";
+//static const char selbordercolor[]  = "#353535";
+//static const char selbgcolor[]      = "#111111";
+//static const char selfgcolor[]      = "#cc00ff";
+static const char normbordercolor[] = "#999999";
+static const char normbgcolor[]     = "#000000";
+static const char normfgcolor[]     = "#999999";
+static const char selbordercolor[]  = "#ffffff";
+static const char selbgcolor[]      = "#000000";
+static const char selfgcolor[]      = "#ffffff";
+
 /* border pixel of windows */
 static const unsigned int borderpx  = 1;
+/* gap pixel between windows */
+static const unsigned int gappx = 4;
 /* snap pixel */
 static const unsigned int snap      = 0;
 /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
@@ -37,7 +46,7 @@ static const int showbar = 1;
 /* 0 means bottom bar */
 static const int topbar = 1;
 /* 0 means no extra bar */
-static const int extrabar = 1;
+static const int extrabar = 0;
 static const int focusonwheel = 0;
 
 /* tagging */

@@ -1,5 +1,16 @@
---- dwm.c.orig	2015-11-22 13:26:16.664650238 -0700
-+++ dwm.c	2015-11-22 13:25:57.407984351 -0700
+--- dwm/dwm.c.orig	2015-11-22 13:26:16.664650238 -0700
++++ dwm/dwm.c	2015-11-22 13:25:57.407984351 -0700
+@@ -52,8 +52,8 @@
+ #define ISVISIBLE(C)            ((C->tags & C->mon->tagset[C->mon->seltags]))
+ #define LENGTH(X)               (sizeof X / sizeof X[0])
+ #define MOUSEMASK               (BUTTONMASK|PointerMotionMask)
+-#define WIDTH(X)                ((X)->w + 2 * (X)->bw)
+-#define HEIGHT(X)               ((X)->h + 2 * (X)->bw)
++#define WIDTH(X)                ((X)->w + 2 * (X)->bw + gappx)
++#define HEIGHT(X)               ((X)->h + 2 * (X)->bw + gappx)
+ #define TAGMASK                 ((1 << LENGTH(tags)) - 1)
+ #define TEXTW(X)                (drw_text(drw, 0, 0, 0, 0, (X), 0) + drw->fonts[0]->h)
+ 
 @@ -1293,12 +1293,36 @@ void
  resizeclient(Client *c, int x, int y, int w, int h)
  {
