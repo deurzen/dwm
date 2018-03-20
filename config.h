@@ -1,4 +1,7 @@
 /* See LICENSE file for copyright and license details. */
+#include "movestack.c"
+#include "fibonacci.c"
+#include "gaplessgrid.c"
 
 /* appearance */
 static const char *fonts[] = {
@@ -56,8 +59,6 @@ static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] 
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
-#include "fibonacci.c"
-#include "gaplessgrid.c"
 static const Layout layouts[] = {
   /* symbol     arrange function */
   { "[]=",      tile },    /* first entry is default */
@@ -116,10 +117,10 @@ static const char *mpcsingle[]      = { "mpc", "single", NULL };
 
 // general management commands
 static const char scratchpadname[]  = "scratchpad";
-static const char *scratchpadcmd[]  = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
+static const char *scratchpadcmd[]  = { "scratchpadterm", "-g", "120x34",
+NULL };
 
 
-#include "movestack.c"
 static Key keys[] = {
   /* modifier                     key        function        argument */
 // program binds
