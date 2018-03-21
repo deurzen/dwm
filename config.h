@@ -101,6 +101,7 @@ static const char *dmenucmd[]       = { "rofi", "-run-command", "zsh -i -c '{cmd
                                         "-font", "tewi 9", "-width", "20", "-lines", "3", NULL };
 static const char *rofipass[]       = { "rofi-pass", NULL };
 static const char *termcmd[]        = { "st", NULL };
+static const char *tmuxcmd[]        = { "st", "-e", "tmux", NULL };
 static const char *floattermcmd[]   = { "st", "-c", "\"st-float\"", NULL };
 static const char *stregion[]       = { "stregion", NULL };
 static const char *qutebrowser[]    = { "qutebrowser", NULL };
@@ -134,7 +135,8 @@ static Key keys[] = {
   /* modifier                     key        function        argument */
 // program binds
   { MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
-  { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+  { MODKEY,                       XK_Return, spawn,          {.v = tmuxcmd } },
+  { MODKEY|ControlMask,           XK_Return, spawn,          {.v = termcmd } },
   { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = floattermcmd } },
   { MODKEY,                       XK_w,      spawn,          {.v = stregion} },
   { MODKEY,                       XK_p,      spawn,          {.v = rofipass} },
