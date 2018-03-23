@@ -245,6 +245,7 @@ static void setlayout(const Arg *arg);
 static void setmfact(const Arg *arg);
 static void setup(void);
 static void showhide(Client *c);
+static void shufflestack(const Arg *arg);
 static void sigchld(int unused);
 static void spawn(const Arg *arg);
 static void switchcol(const Arg *arg);
@@ -958,17 +959,31 @@ expose(XEvent *e)
 void
 focus(Client *c)
 {
+  // If no client arg is supplied, or
+  // if client arg is supplied and blongs to current tagset,
+  // look through stack for next client on current tagset.
   if (!c || !ISVISIBLE(c))
     for (c = selmon->stack; c && !ISVISIBLE(c); c = c->snext);
-  /* was if (selmon->sel) */
+
+  // If currently selected (focused) client on monitor is not
+  // supplied client, unselect (unfocus) it.
   if (selmon->sel && selmon->sel != c)
     unfocus(selmon->sel, 0);
+
+  // If client arg is supplied:
   if (c) {
+    // If supplied client monitor not same as current monitor,
+    // switch to supplied client monitor.
     if (c->mon != selmon)
       selmon = c->mon;
+
+    // If supplied client flagged urgent, unset urgency flag.
     if (c->isurgent)
       clearurgent(c);
+
+    // Remove supplied client from anywhere in the stack.
     detachstack(c);
+    // Reattach supplied client to stack.
     attachstack(c);
     grabbuttons(c, 1);
     XSetWindowBorder(dpy, c->win, scheme[SchemeSel].border->pix);
@@ -1870,22 +1885,44 @@ setmfact(const Arg *arg)
 void
 setup(void)
 {
+  // Holds window attributes
   XSetWindowAttributes wa;
 
   /* clean up any zombies immediately */
   sigchld(0);
 
   /* init screen */
+  // Grab default screen from display
   screen = DefaultScreen(dpy);
+  // Screen width
   sw = DisplayWidth(dpy, screen);
+  // Screen height
   sh = DisplayHeight(dpy, screen);
+  // Root window of default screen
   root = RootWindow(dpy, screen);
+  // Creates "display root window" struct
+  //   contains following variables
+  //     w: width
+  //     h: height
+  //     *dpy: display
+  //     screen: screen number
+  //     root: root window
+  //     drawable: window/pixmap
+  //     gc: graphics context
+  //     scheme: colorscheme
+  //     fontcount: amount of fonts
+  //     fonts: list of fonts
   drw = drw_create(dpy, screen, root, sw, sh);
+  // Load in supplied drw fonts
   drw_load_fonts(drw, fonts, LENGTH(fonts));
+  // Initially show/hide bottom bar depending on
+  // value in `extrabar`.
   eb.show = extrabar;
   if (!drw->fontcount)
     die("no fonts could be loaded.\n");
+  // Determine the height of the bar
   bh = drw->fonts[0]->h + 2;
+  // Sets up full screen geometry (multiple mons?)
   updategeom();
   /* init atoms */
   wmatom[WMProtocols] = XInternAtom(dpy, "WM_PROTOCOLS", False);
@@ -1921,6 +1958,7 @@ setup(void)
   updatesystray();
   /* init bars */
   updatebars();
+  // Updates status bar(s) text
   updatestatus();
   /* EWMH support per view */
   XChangeProperty(dpy, root, netatom[NetSupported], XA_ATOM, 32,
@@ -1951,6 +1989,23 @@ showhide(Client *c)
     /* hide clients bottom up */
     showhide(c->snext);
     XMoveWindow(dpy, c->win, WIDTH(c) * -2, c->y);
+  }
+}
+
+void
+shufflestack(const Arg *arg)
+{
+  Client *c = NULL, *f;
+
+  if (!selmon->sel)
+    return;
+
+  f = selmon->sel;
+
+  if (arg->i > 0) {
+
+  } else {
+
   }
 }
 
@@ -2708,14 +2763,21 @@ main(int argc, char *argv[])
     die("dwm-"VERSION "\n");
   else if (argc != 1)
     die("usage: dwm [-v]\n");
+  // Set locale to C.
   if (!setlocale(LC_CTYPE, "") || !XSupportsLocale())
     fputs("warning: no locale support\n", stderr);
+  // Open display, have Xlib choose which one.
   if (!(dpy = XOpenDisplay(NULL)))
     die("dwm: cannot open display\n");
+  // Make sure no other WM is running.
   checkotherwm();
+  // Prepare environment.
   setup();
   scan();
+  // Execute startup files "~/.dwm/autostart-blocking.sh" and
+  // "~/.dwm/autostart.sh" in that order.
   runAutostart();
+  // Main loop.
   run();
   cleanup();
   XCloseDisplay(dpy);

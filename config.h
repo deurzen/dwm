@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
-#include "movestack.c"
-#include "fibonacci.c"
-#include "gaplessgrid.c"
+#include "extensions/movestack.c"
+#include "extensions/fibonacci.c"
+#include "extensions/gaplessgrid.c"
 
 /* appearance */
 static const char *fonts[] = {
@@ -98,7 +98,7 @@ static const Layout layouts[] = {
 static       char dmenumon[2]       = "0"; /* component of dmenucmd, manipulated in spawn() */
 // program binds
 static const char *dmenucmd[]       = { "rofi", "-run-command", "zsh -i -c '{cmd}'", "-show", "run",
-                                        "-font", "tewi 9", "-width", "20", "-lines", "3", NULL };
+                                        "-font", "xos4 Terminus 9", "-width", "20", "-lines", "3", NULL };
 static const char *rofipass[]       = { "rofi-pass", NULL };
 static const char *termcmd[]        = { "st", NULL };
 static const char *tmuxcmd[]        = { "st", "-e", "tmux", NULL };
