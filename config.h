@@ -12,12 +12,12 @@ static const char *fonts[] = {
 	"Terminus2:pixelsize=12"
 };
 
-static const char normbordercolor[] = "#999999";
+static const char normbordercolor[] = "#875f00";
 static const char normbgcolor[]     = "#000000";
-static const char normfgcolor[]     = "#999999";
-static const char selbordercolor[]  = "#ffffff";
+static const char normfgcolor[]     = "#d7af5f";
+static const char selbordercolor[]  = "#d7af5f";
 static const char selbgcolor[]      = "#000000";
-static const char selfgcolor[]      = "#ffffff";
+static const char selfgcolor[]      = "#875f00";
 
 /* border pixel of windows */
 static const unsigned int borderpx  = 1;
