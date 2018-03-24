@@ -1,5 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 #include "extensions/movestack.c"
+#include "extensions/cyclenonmaster.c"
 #include "extensions/fibonacci.c"
 #include "extensions/gaplessgrid.c"
 
@@ -143,12 +144,12 @@ static Key keys[] = {
 	{ ShiftMask,                    0x1008ff02,spawn,          {.v = lightup} },
 	{ ShiftMask,                    0x1008ff03,spawn,          {.v = lightdown} },
 // mpc binds
-	{ MODKEY|ControlMask,           XK_p,      spawn,          {.v = mpctoggle} },
-	{ MODKEY|ControlMask,           XK_j,      spawn,          {.v = mpcnext} },
-	{ MODKEY|ControlMask,           XK_k,      spawn,          {.v = mpcprev} },
-	{ MODKEY|ControlMask,           XK_BackSpace,spawn,        {.v = mpcstop} },
-	{ MODKEY|ControlMask,           XK_r,      spawn,          {.v = mpcrandom} },
-	{ MODKEY|ControlMask,           XK_s,      spawn,          {.v = mpcsingle} },
+	{ MODKEY|Mod1Mask,              XK_p,      spawn,          {.v = mpctoggle} },
+	{ MODKEY|Mod1Mask,              XK_j,      spawn,          {.v = mpcnext} },
+	{ MODKEY|Mod1Mask,              XK_k,      spawn,          {.v = mpcprev} },
+	{ MODKEY|Mod1Mask,              XK_BackSpace,spawn,        {.v = mpcstop} },
+	{ MODKEY|Mod1Mask,              XK_r,      spawn,          {.v = mpcrandom} },
+	{ MODKEY|Mod1Mask,              XK_s,      spawn,          {.v = mpcsingle} },
 // layout binds
 	{ MODKEY,                       XK_BackSpace, zoom,        {0} },
 	{ MODKEY,                       XK_backslash, switchcol,   {0} },
@@ -169,6 +170,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_j,      cyclenonmaster, {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_k,      cyclenonmaster, {.i = -1 } },
 	{ MODKEY,                       XK_u,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_u,      rotatestack,    {.i = -1 } },
