@@ -98,6 +98,9 @@ static const char *floattermcmd[]   = { "st", "-c", "\"st-float\"", NULL };
 static const char *stregion[]       = { "stregion", NULL };
 static const char *qutebrowser[]    = { "qutebrowser", NULL };
 static const char *qutebrowseror[]  = { "qutebrowser", "-R", NULL };
+static const char *termneomutt[]    = { "st", "-e", "neomutt", NULL };
+static const char *termranger[]     = { "st", "-e", "ranger", NULL };
+static const char *termsncli[]     = { "st", "-e", "sncli", NULL };
 static const char *lockscreen[]     = { "7lock", NULL };
 
 // multimedia binds
@@ -134,6 +137,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = rofipass} },
 	{ MODKEY,                       XK_q,      spawn,          {.v = qutebrowser} },
 	{ MODKEY|ShiftMask,             XK_q,      spawn,          {.v = qutebrowseror} },
+	{ MODKEY,                       XK_e,      spawn,          {.v = termneomutt} },
+	{ MODKEY,                       XK_f,      spawn,          {.v = termranger} },
+	{ MODKEY,                       XK_s,      spawn,          {.v = termsncli} },
 	{ MODKEY|ShiftMask,             XK_Delete, spawn,          {.v = lockscreen} },
 // multimedia binds
 	{ 0,                            0x1008ff13,spawn,          {.v = volumeup} },
@@ -154,9 +160,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_BackSpace, zoom,        {0} },
 	{ MODKEY,                       XK_backslash, switchcol,   {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_s,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY|ShiftMask,             XK_s,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY|ShiftMask,             XK_d,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_b,      setlayout,      {.v = &layouts[5]} },
 	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[6]} },
