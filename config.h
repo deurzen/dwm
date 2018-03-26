@@ -13,12 +13,18 @@ static const char *fonts[] = {
 	"Terminus2:pixelsize=12"
 };
 
-static const char normbordercolor[] = "#875f00";
-static const char normbgcolor[]     = "#000000";
-static const char normfgcolor[]     = "#d7af5f";
-static const char selbordercolor[]  = "#d7af5f";
-static const char selbgcolor[]      = "#000000";
-static const char selfgcolor[]      = "#875f00";
+//static const char normbordercolor[] = "#875f00";
+//static const char normbgcolor[]     = "#000000";
+//static const char normfgcolor[]     = "#d7af5f";
+//static const char selbordercolor[]  = "#d7af5f";
+//static const char selbgcolor[]      = "#000000";
+//static const char selfgcolor[]      = "#875f00";
+static const char normbordercolor[] = "#cccccc";
+static const char normbgcolor[]     = "#cccccc";
+static const char normfgcolor[]     = "#000000";
+static const char selbordercolor[]  = "#0066ff";
+static const char selbgcolor[]      = "#0066ff";
+static const char selfgcolor[]      = "#ffffff";
 
 /* border pixel of windows */
 static const unsigned int borderpx  = 1;
@@ -98,9 +104,9 @@ static const char *floattermcmd[]   = { "st", "-c", "\"st-float\"", NULL };
 static const char *stregion[]       = { "stregion", NULL };
 static const char *qutebrowser[]    = { "qutebrowser", NULL };
 static const char *qutebrowseror[]  = { "qutebrowser", "-R", NULL };
-static const char *termneomutt[]    = { "st", "-e", "neomutt", NULL };
-static const char *termranger[]     = { "st", "-e", "ranger", NULL };
-static const char *termsncli[]     = { "st", "-e", "sncli", NULL };
+static const char *termneomutt[]    = { "st", "-e", "zsh", "-i", "-c", "'neomutt'", NULL };
+static const char *termranger[]     = { "st", "-e", "zsh", "-i", "-c", "'ranger'", NULL };
+static const char *termsncli[]     = { "st", "-e", "zsh", "-i", "-c", "'sncli'", NULL };
 static const char *lockscreen[]     = { "7lock", NULL };
 
 // multimedia binds
