@@ -13,18 +13,12 @@ static const char *fonts[] = {
 	"Terminus2:pixelsize=12"
 };
 
-//static const char normbordercolor[] = "#875f00";
-//static const char normbgcolor[]     = "#000000";
-//static const char normfgcolor[]     = "#d7af5f";
-//static const char selbordercolor[]  = "#d7af5f";
-//static const char selbgcolor[]      = "#000000";
-//static const char selfgcolor[]      = "#875f00";
-static const char normbordercolor[] = "#cccccc";
-static const char normbgcolor[]     = "#cccccc";
-static const char normfgcolor[]     = "#000000";
-static const char selbordercolor[]  = "#0066ff";
-static const char selbgcolor[]      = "#0066ff";
-static const char selfgcolor[]      = "#ffffff";
+static const char normbordercolor[] = "#444444";
+static const char normbgcolor[]     = "#222222";
+static const char normfgcolor[]     = "#bbbbbb";
+static const char selbordercolor[]  = "#005577";
+static const char selbgcolor[]      = "#005577";
+static const char selfgcolor[]      = "#eeeeee";
 
 /* border pixel of windows */
 static const unsigned int borderpx  = 1;
@@ -106,7 +100,9 @@ static const char *qutebrowser[]    = { "qutebrowser", NULL };
 static const char *qutebrowseror[]  = { "qutebrowser", "-R", NULL };
 static const char *termneomutt[]    = { "st", "-e", "zsh", "-i", "-c", "'neomutt'", NULL };
 static const char *termranger[]     = { "st", "-e", "zsh", "-i", "-c", "'ranger'", NULL };
-static const char *termsncli[]     = { "st", "-e", "zsh", "-i", "-c", "'sncli'", NULL };
+static const char *termsncli[]      = { "st", "-e", "zsh", "-i", "-c", "'sncli'", NULL };
+static const char *termrtv[]        = { "st", "-e", "zsh", "-i", "-c", "'rtv'", NULL };
+//static const char *termrtv[]        = { "st", "-e", "rtv", "--enable-media", NULL };
 static const char *lockscreen[]     = { "7lock", NULL };
 
 // multimedia binds
@@ -139,13 +135,14 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, spawn,          {.v = tmuxcmd } },
 	{ MODKEY|ControlMask,           XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = floattermcmd } },
-	{ MODKEY,                       XK_w,      spawn,          {.v = stregion} },
+	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = stregion} },
 	{ MODKEY,                       XK_p,      spawn,          {.v = rofipass} },
 	{ MODKEY,                       XK_q,      spawn,          {.v = qutebrowser} },
 	{ MODKEY|ShiftMask,             XK_q,      spawn,          {.v = qutebrowseror} },
 	{ MODKEY,                       XK_e,      spawn,          {.v = termneomutt} },
 	{ MODKEY,                       XK_f,      spawn,          {.v = termranger} },
 	{ MODKEY,                       XK_s,      spawn,          {.v = termsncli} },
+	{ MODKEY,                       XK_w,      spawn,          {.v = termrtv} },
 	{ MODKEY|ShiftMask,             XK_Delete, spawn,          {.v = lockscreen} },
 // multimedia binds
 	{ 0,                            0x1008ff13,spawn,          {.v = volumeup} },

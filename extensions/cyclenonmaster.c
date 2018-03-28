@@ -3,7 +3,6 @@ cyclenonmaster(const Arg *arg)
 {
 	Client *lm = NULL, *fc = NULL, *lc = NULL;
 	Client *plc = NULL, *pfc = NULL, *nfc = NULL;
-	int nm = selmon->nmaster;
 
 	// Find last master client
 	if (selmon->nmaster > 0) {
@@ -38,6 +37,9 @@ cyclenonmaster(const Arg *arg)
 			c = c->next;
 		}
 	}
+
+	if (fc == lc)
+		return;
 
 	// Find client before last nonmaster client
 	for (plc = fc; plc->next != lc; plc = plc->next);
