@@ -100,6 +100,7 @@ static const char *qutebrowser[]    = { "qutebrowser", NULL };
 static const char *qutebrowseror[]  = { "qutebrowser", "-R", NULL };
 static const char *termneomutt[]    = { "st", "-e", "zsh", "-i", "-c", "'neomutt'", NULL };
 static const char *termranger[]     = { "st", "-e", "zsh", "-i", "-c", "'ranger'", NULL };
+static const char *floattermrngr[]  = { "st", "-g", "120x34+203+129", "-c", "st-float", "-e", "zsh", "-i", "-c", "'ranger'", NULL }; 
 static const char *termsncli[]      = { "st", "-e", "zsh", "-i", "-c", "'sncli'", NULL };
 static const char *floattermsncli[] = { "st", "-g", "120x34+203+129", "-c", "st-float", "-e", "zsh", "-i", "-c", "'sncli'", NULL }; 
 static const char *termrtv[]        = { "st", "-e", "zsh", "-i", "-c", "'rtv'", NULL };
@@ -141,6 +142,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_q,      spawn,          {.v = qutebrowseror} },
 	{ MODKEY,                       XK_e,      spawn,          {.v = termneomutt} },
 	{ MODKEY,                       XK_f,      spawn,          {.v = termranger} },
+	{ MODKEY|ShiftMask,             XK_f,      spawn,          {.v = floattermrngr} },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = termsncli} },
 	{ MODKEY,                       XK_s,      spawn,          {.v = floattermsncli} },
 	{ MODKEY,                       XK_w,      spawn,          {.v = termrtv} },
@@ -164,7 +166,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_BackSpace, zoom,        {0} },
 	{ MODKEY,                       XK_backslash, switchcol,   {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY|ControlMask|ShiftMask, XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY|ControlMask|ShiftMask, XK_s,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY|ShiftMask,             XK_d,      setlayout,      {.v = &layouts[4]} },
