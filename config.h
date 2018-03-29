@@ -101,7 +101,7 @@ static const char *qutebrowseror[]  = { "qutebrowser", "-R", NULL };
 static const char *termneomutt[]    = { "st", "-e", "zsh", "-i", "-c", "'neomutt'", NULL };
 static const char *termranger[]     = { "st", "-e", "zsh", "-i", "-c", "'ranger'", NULL };
 static const char *termsncli[]      = { "st", "-e", "zsh", "-i", "-c", "'sncli'", NULL };
-static const char *floattermsncli[] = { "st", "-c", "st-float", "-e", "zsh", "-i", "-c", "'sncli'", NULL }; 
+static const char *floattermsncli[] = { "st", "-g", "120x34+203+129", "-c", "st-float", "-e", "zsh", "-i", "-c", "'sncli'", NULL }; 
 static const char *termrtv[]        = { "st", "-e", "zsh", "-i", "-c", "'rtv'", NULL };
 //static const char *termrtv[]        = { "st", "-e", "rtv", "--enable-media", NULL };
 static const char *lockscreen[]     = { "7lock", NULL };
@@ -125,8 +125,7 @@ static const char *mpcsingle[]      = { "mpc", "single", NULL };
 
 // general management commands
 static const char scratchpadname[]  = "scratchpad";
-static const char *scratchpadcmd[]  = { "scratchpadterm", "-g", "120x34",
-NULL };
+static const char *scratchpadcmd[]  = { "scratchpadterm", "-g", "120x34", NULL };
 
 
 static Key keys[] = {
@@ -142,8 +141,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_q,      spawn,          {.v = qutebrowseror} },
 	{ MODKEY,                       XK_e,      spawn,          {.v = termneomutt} },
 	{ MODKEY,                       XK_f,      spawn,          {.v = termranger} },
-	{ MODKEY,                       XK_s,      spawn,          {.v = termsncli} },
-	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = floattermsncli} },
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = termsncli} },
+	{ MODKEY,                       XK_s,      spawn,          {.v = floattermsncli} },
 	{ MODKEY,                       XK_w,      spawn,          {.v = termrtv} },
 	{ MODKEY|ShiftMask,             XK_Delete, spawn,          {.v = lockscreen} },
 // multimedia binds
