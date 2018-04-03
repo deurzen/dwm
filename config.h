@@ -6,7 +6,8 @@
 
 /* appearance */
 static const char *fonts[] = {
-	"xos4 Terminus:size=12", // bar font
+	"cherry:pixelsize=13", // bar font
+	"xos4 Terminus:size=12",
 	"Misc Tamsyn:size=12",
 	"monospace:size=9",
 	"tewi:pixelsize=9",
@@ -16,9 +17,9 @@ static const char *fonts[] = {
 static const char normbordercolor[] = "#444444";
 static const char normbgcolor[]     = "#222222";
 static const char normfgcolor[]     = "#bbbbbb";
-static const char selbordercolor[]  = "#005577";
-static const char selbgcolor[]      = "#005577";
-static const char selfgcolor[]      = "#eeeeee";
+static const char selbordercolor[]  = "#ebcb8b";
+static const char selbgcolor[]      = "#222223";
+static const char selfgcolor[]      = "#ebcb8b";
 
 /* border pixel of windows */
 static const unsigned int borderpx  = 1;
@@ -99,11 +100,12 @@ static const char *stregion[]       = { "stregion", NULL };
 static const char *qutebrowser[]    = { "qutebrowser", NULL };
 static const char *qutebrowseror[]  = { "qutebrowser", "-R", NULL };
 static const char *termneomutt[]    = { "st", "-e", "zsh", "-i", "-c", "'neomutt'", NULL };
-static const char *termranger[]     = { "st", "-e", "zsh", "-i", "-c", "'ranger'", NULL };
-static const char *floattermrngr[]  = { "st", "-g", "120x34+203+129", "-c", "st-float", "-e", "zsh", "-i", "-c", "'ranger'", NULL }; 
+static const char *termranger[]     = { "w3mterm", "-e", "zsh", "-i", "-c", "'ranger'", NULL };
+static const char *floattermrngr[]  = { "w3mterm", "-g", "120x34+203+129", "-c", "st-float", "-e", "zsh", "-i", "-c", "'ranger'", NULL }; 
 static const char *termsncli[]      = { "st", "-e", "zsh", "-i", "-c", "'sncli'", NULL };
 static const char *floattermsncli[] = { "st", "-g", "120x34+203+129", "-c", "st-float", "-e", "zsh", "-i", "-c", "'sncli'", NULL }; 
 static const char *termrtv[]        = { "st", "-e", "zsh", "-i", "-c", "'rtv'", NULL };
+static const char *nontransterm[]   = { "w3mterm", NULL };
 //static const char *termrtv[]        = { "st", "-e", "rtv", "--enable-media", NULL };
 static const char *lockscreen[]     = { "7lock", NULL };
 
@@ -115,6 +117,8 @@ static const char *brightup[]       = { "light", "-A", "15", NULL };
 static const char *brightdown[]     = { "light", "-U", "15", NULL };
 static const char *lightup[]        = { "light", "-A", "5", NULL };
 static const char *lightdown[]      = { "light", "-U", "5", NULL };
+static const char *selscreenshot[]  = { "bash", "-c", "maim -s $(date +/home/deurzen/screenshots/scrots/SS_%Y-%h-%d_%H-%M-%S.png)", NULL };
+static const char *screenshot[]  = { "bash", "-c", "maim $(date +/home/deurzen/screenshots/scrots/SS_%Y-%h-%d_%H-%M-%S.png)", NULL };
 
 // mpc commands
 static const char *mpctoggle[]      = { "mpc", "toggle", NULL };
@@ -135,7 +139,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = tmuxcmd } },
 	{ MODKEY|ControlMask,           XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = floattermcmd } },
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = nontransterm } },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = stregion} },
 	{ MODKEY,                       XK_p,      spawn,          {.v = rofipass} },
 	{ MODKEY,                       XK_q,      spawn,          {.v = qutebrowser} },
@@ -155,6 +159,8 @@ static Key keys[] = {
 	{ 0,                            0x1008ff03,spawn,          {.v = brightdown} },
 	{ ShiftMask,                    0x1008ff02,spawn,          {.v = lightup} },
 	{ ShiftMask,                    0x1008ff03,spawn,          {.v = lightdown} },
+	{ 0,                            XK_Print,  spawn,          {.v = selscreenshot} },
+	{ ShiftMask,                    XK_Print,  spawn,          {.v = screenshot} },
 // mpc binds
 	{ MODKEY|Mod1Mask,              XK_p,      spawn,          {.v = mpctoggle} },
 	{ MODKEY|Mod1Mask,              XK_j,      spawn,          {.v = mpcnext} },
