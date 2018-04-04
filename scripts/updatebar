@@ -19,7 +19,8 @@ if [ -n "$MUSIC" ]; then
   MUSIC=[$MUSIC]
 fi
 
-xsetroot -name "[$BATTERY]  [`eval $CLOCK`]  [$USER];$MUSIC"
+#xsetroot -name "[$BATTERY]  [`eval $CLOCK`]  [$USER];$MUSIC"
+xsetroot -name "[$BATTERY]  [`eval $CLOCK`];$MUSIC"
 sleep 1
 done
 
